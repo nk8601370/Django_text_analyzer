@@ -21,6 +21,14 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
-    - name: Run Tests
+    - name: Run Application
       run: |
         python manage.py runserver
+      
+    - name: Build and Push Docker image
+      uses: mr-smithers-excellent/docker-build-push@v5
+      with:
+        image: nk8601370/docker-demo
+        registry: docker.io
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
